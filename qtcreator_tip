@@ -1,0 +1,7 @@
+1 edit with gvim
+
+Executable   :    gvim
+Arguments    :    "%{CurrentDocument:FilePath}" +%{CurrentDocument:Row}
+Working directory  :  %{CurrentDocument:Path}
+
+
