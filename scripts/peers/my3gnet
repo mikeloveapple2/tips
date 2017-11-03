@@ -1,0 +1,16 @@
+debug
+nodetach
+/dev/ttyUSB0
+115200
+usepeerdns
+noauth
+noipdefault
+novj
+novjccomp
+noccp
+defaultroute
+ipcp-accept-local
+ipcp-accept-remote
+connect '/usr/sbin/chat -s -v -f /etc/ppp/peers/chat-my3gnet-connect'
+disconnect '/usr/sbin/chat -s -v -f/etc/ppp/peers/chat-my3gnet-disconnect'
+
