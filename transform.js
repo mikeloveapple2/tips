@@ -66,7 +66,23 @@ function wgs84togcj02(lng, lat) {
         return [mglng, mglat]
     }
 }
+function wgs84tobd09(lng, lat){
+    var gcj_arr = wgs84togcj02(lng, lat);  
+    var bd_arr = gcj02tobd09(gcj_arr[0], gcj_arr[1]);
+    var obj = {};
+    obj.lat = bd_arr[1];
+    obj.lng = bd_arr[0];
+    return [obj.lng, obj.lat];
+}
 
+function bd09towgs84(lng, lat){
+    var gcj_arr = bd09togcj02(lng, lat);
+    var wgs_arr = gcj02towgs84(gcj_arr[0], gcj_arr[1]);
+    var obj = {};
+    obj.lat = wgs_arr[1];
+    obj.lng = wgs_arr[0];
+    return [obj.lng, obj.lat]
+}
 /**
  * GCJ02 转换为 WGS84
  * @param lng
