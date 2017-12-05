@@ -7,6 +7,11 @@ Rectangle {
     height : 360
     color : "#E0E0E0"
 
+    signal keyPressed(var keyValue);
+    signal clearPressed();
+    signal enterPressed();
+    signal backspacePressed();
+
     GridLayout {
         id : grid
         columns: 4
@@ -19,7 +24,7 @@ Rectangle {
         NumberButton{ textPressColor : "#DD2C00"; text : "7";  onClicked: { numberPressHandle(text);}    }
         NumberButton{ textPressColor : "#dd2c00"; text : "8";  onClicked: { numberPressHandle(text);}    }
         NumberButton{ textPressColor : "#dd2c00"; text : "9";  onClicked: { numberPressHandle(text);}    }
-        NumberButton{ textPressColor : "#dd2c00"; text : "-";  onClicked: { numberPressHandle(text);} height: 150; Layout.rowSpan: 2; }
+        NumberButton{ textPressColor : "#dd2c00"; text : "C";  onClicked: { numberPressHandle("clear");} height: 150; Layout.rowSpan: 2; }
 
         NumberButton{ textPressColor : "#dd2c00"; text : "4";  onClicked: { numberPressHandle(text);}    }
         NumberButton{ textPressColor : "#dd2c00"; text : "5";  onClicked: { numberPressHandle(text);}    }
@@ -28,17 +33,33 @@ Rectangle {
         NumberButton{ textPressColor : "#dd2c00"; text : "1";  onClicked: { numberPressHandle(text);}    }
         NumberButton{ textPressColor : "#dd2c00"; text : "2";  onClicked: { numberPressHandle(text);}    }
         NumberButton{ textPressColor : "#dd2c00"; text : "3";  onClicked: { numberPressHandle(text);}    }
-        NumberButton{ textPressColor : "#dd2c00"; text : "enter";  onClicked: { numberPressHandle(text);} Layout.rowSpan: 2; height: 150;  }
+        NumberButton{ textPressColor : "#dd2c00"; text : "↲";  onClicked: { numberPressHandle("enter");} Layout.rowSpan: 2; height: 150;  }
 
         NumberButton{ textPressColor : "#dd2c00"; text : "0";  onClicked: { numberPressHandle(text);}    }
         NumberButton{ textPressColor : "#dd2c00"; text : ".";  onClicked: { numberPressHandle(text);}    }
-        NumberButton{ textPressColor : "#dd2c00"; text : "Del";  onClicked: { numberPressHandle(text);}  }
+        NumberButton{ textPressColor : "#dd2c00"; text : "←";  onClicked: { numberPressHandle("backspace");}  }
+
     }
 
 
     function numberPressHandle(keyValue){
-        print("pressed : " + keyValue);
+        switch(keyValue){
+        case "enter" : {
+            root.enterPressed();
+            break;
+        }
+        case "backspace" : {
+            root.backspacePressed();
+            break;
+        }
+        case "clear" : {
+            root.clearPressed();
+            break;
+        }
+        default : {
+            root.keyPressed(keyValue);
+            break;
+        }
+        }
     }
-
-
 }
