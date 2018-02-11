@@ -218,3 +218,29 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
+
+" auto load cscope.out
+function! LoadCscope()
+  let db = findfile("cscope.out", ".;")
+  if (!empty(db))
+    let path = strpart(db, 0, match(db, "/cscope.out$"))
+    set nocscopeverbose " suppress 'duplicate connection' error
+    exe "cs add " . db . " " . path
+    set cscopeverbose
+  " else add the database pointed to by environment variable 
+  elseif $CSCOPE_DB != "" 
+    cs add $CSCOPE_DB
+  endif
+endfunction
+
+au BufEnter /* call LoadCscope()
+
+
+" fix quickfix not show
+if has('cscope')
+  set cscopetag cscopeverbose
+  if has('quickfix')
+    " set cscopequickfix=s-,c-,d-,i-,t-,e-
+    set cscopequickfix=c-,i-,t-,e-
+  endif
+endif
